@@ -12,11 +12,9 @@ def main():
     t_entry = random.choice(t_entries)
 
     home = Tk()
-    logo = PhotoImage(file="C:/VS Code/Project 1/listlogo1.png")
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    home.iconphoto(True, logo)
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.pack()
