@@ -131,9 +131,6 @@ def main():
                         padx=12, pady=6,
                         cursor="hand2", command=clear).pack(side=RIGHT)
 
-   # credit_t = Label(home, text="made by zzelitt", fg="#928d87", bg="#4a4644")
-   # credit_t.place(relx=0.9,rely=0.96,anchor="n")
-
     home.mainloop()
 
 if __name__ == "__main__":
