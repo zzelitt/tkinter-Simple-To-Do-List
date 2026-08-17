@@ -15,7 +15,7 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    home.iconbitmap("listlogo1.ico")
+    #home.iconbitmap("listlogo1.ico")
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.pack()
@@ -131,8 +131,8 @@ def main():
                         padx=12, pady=6,
                         cursor="hand2", command=clear).pack(side=RIGHT)
 
-    credit_t = Label(home, text="made by zzelitt", fg="#928d87", bg="#4a4644")
-    credit_t.place(relx=0.9,rely=0.96,anchor="n")
+   # credit_t = Label(home, text="made by zzelitt", fg="#928d87", bg="#4a4644")
+   # credit_t.place(relx=0.9,rely=0.96,anchor="n")
 
     home.mainloop()
 
