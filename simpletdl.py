@@ -3,7 +3,16 @@ from tkinter import *
 import random
 from tkinter import messagebox
 import time
+from time import strftime
+import sys, os
+from tkinter.font import Font
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def main():
     t_entries = ("ex: Call Mom tonight", "ex: Finish the homework", "ex: Eat healthy tonight", 
@@ -15,13 +24,21 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    #home.iconbitmap("listlogo1.ico")
+    home.iconbitmap(resource_path("icons/listlogo1.ico"))
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
-    header_text.pack()
+    header_text.place(relx=0.5,rely=0.01,anchor="n")
+
+    time_label = Label(home, font=("Arial Black",16), padx=5, bg="#2c2a2a", fg="#e6e0e0")
+    time_label.place(relx=0.835,rely=0.035,anchor="n")
+
+    def time():
+        string = strftime('%H:%M %p')
+        time_label.config(text=string)
+        time_label.after(1000,time)
 
     add_task_frame = Frame(home, bg="#2e2c2c")
-    add_task_frame.pack()
+    add_task_frame.place(relx=0.5,rely=0.1,anchor="n")
 
     tasks = []
 
@@ -131,6 +148,7 @@ def main():
                         padx=12, pady=6,
                         cursor="hand2", command=clear).pack(side=RIGHT)
 
+    time()
     home.mainloop()
 
 if __name__ == "__main__":
