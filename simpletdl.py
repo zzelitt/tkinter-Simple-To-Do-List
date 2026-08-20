@@ -33,7 +33,7 @@ def main():
     time_label.place(relx=0.835,rely=0.035,anchor="n")
 
     def time():
-        string = strftime('%H:%M %p')
+        string = strftime('%H:%M')
         time_label.config(text=string)
         time_label.after(1000,time)
 
