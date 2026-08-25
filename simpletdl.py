@@ -7,17 +7,27 @@ from time import strftime
 from tkinter.font import Font
 
 def main():
-    t_entries = ("ex: Call Mom tonight", "ex: Finish the homework", "ex: Eat healthy tonight", 
-                "ex: Clean my room", "ex: Hit the gym", "ex: Do 10 push-ups",
-                "ex: Yoga class at 6 tonight", "ex: Dentist appointment tomorrow", "ex: Cook food")
+    global home
+    global to_do_list
+    global t_entries
+    global task_entry
+    
+    t_entries = ("What do you need to do?", "Add a new task...", "e.g. Buy groceries", "Type your task here",
+                 "What's next on your list?", "e.g. Finish report by Friday", "Enter a task...",
+                 "Got something to remember?", "e.g. Call the dentist", "Add to your to-do list", "What's on your mind?",
+                 "Something to get done?", "Add it before you forget!", "What's the plan today?", "One more thing to do...",
+                 "e.g. Walk the dog", "e.g. Reply to emails", "e.g. Pay electricity bill", "e.g. Clean the kitchen",
+                 "e.g. Book dentist appointment", "Jot down a task...", "What's due today?", "Add something to tackle",
+                 "e.g. Submit assignment", "Type here to add a task", "What needs doing?", "e.g. Pick up dry cleaning",
+                 "Add your next task", "e.g. Renew car insurance", "Anything to add?")
     t_entry = random.choice(t_entries)
 
     home = Tk()
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    windowim = PhotoImage(file='logo.png')   # Comment/Remove this and the line below this,
-    home.iconphoto(True, windowim)           # if the 'logo.png' file is not in the same folder as the script
+    windowim = PhotoImage(file='logo.png')
+    home.iconphoto(True, windowim)
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.place(relx=0.5,rely=0.01,anchor="n")
@@ -37,14 +47,17 @@ def main():
 
     def add_task():
         task = task_entry.get()
-        if to_do_list.size() <= 20:
+        if to_do_list.size() <= 20 and task != "" and task not in t_entries:
             to_do_list.insert(to_do_list.size(), task)
             to_do_list.config(height=to_do_list.size())
             tasks.append(task)
+            task_entry.delete(0,END)
             if len(task) > to_do_list.cget("width"):
                 to_do_list.config(width=len(task)+5)
-        else:
+        elif to_do_list.size() > 20:
             messagebox.showwarning(title="Line expansion",message="List cannot exceed 20 lines")
+        elif task == "":
+            pass
 
     def add_event_t(event):
             task = task_entry.get()
@@ -52,6 +65,7 @@ def main():
                 to_do_list.insert(to_do_list.size(), task)
                 to_do_list.config(height=to_do_list.size())
                 tasks.append(task)
+                task_entry.delete(0,END)
                 if len(task) > to_do_list.cget("width"):
                     to_do_list.config(width=len(task)+2)
             elif to_do_list.size() > 20:
@@ -61,6 +75,13 @@ def main():
 
     def clearentry(event):
         task_entry.delete(0,END)
+
+    def replaceholder(event):
+        global t_entries
+        global task_entry
+        t_entry = random.choice(t_entries)
+        task_entry.delete(0,END)
+        task_entry.insert(0,t_entry)
             
     task_entry = Entry(add_task_frame, width=30, font=('JetBrains Mono', 12, "italic"),
                         bg="#3a3736",   
@@ -73,7 +94,8 @@ def main():
     task_entry.insert(0, t_entry)
     task_entry.pack(padx=3,side=LEFT)
 
-    task_entry.bind("<Button-1>",clearentry)
+    task_entry.bind("<FocusIn>",clearentry)
+    task_entry.bind("<FocusOut>",replaceholder)
     task_entry.bind("<Return>",add_event_t)
 
     a_task_button = Button(add_task_frame, text="Add Task",
