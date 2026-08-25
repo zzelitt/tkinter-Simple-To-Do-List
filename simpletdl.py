@@ -4,15 +4,7 @@ import random
 from tkinter import messagebox
 import time
 from time import strftime
-import sys, os
 from tkinter.font import Font
-
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except AttributeError:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
 
 def main():
     t_entries = ("ex: Call Mom tonight", "ex: Finish the homework", "ex: Eat healthy tonight", 
@@ -24,7 +16,8 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    home.iconbitmap(resource_path("icons/listlogo1.ico"))
+    windowim = PhotoImage(file='logo.png')
+    home.iconphoto(True, windowim)
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.place(relx=0.5,rely=0.01,anchor="n")
@@ -33,7 +26,7 @@ def main():
     time_label.place(relx=0.835,rely=0.035,anchor="n")
 
     def time():
-        string = strftime('%H:%M')
+        string = strftime('%H:%M %p')
         time_label.config(text=string)
         time_label.after(1000,time)
 
@@ -52,6 +45,22 @@ def main():
                 to_do_list.config(width=len(task)+5)
         else:
             messagebox.showwarning(title="Line expansion",message="List cannot exceed 20 lines")
+
+    def add_event_t(event):
+            task = task_entry.get()
+            if to_do_list.size() <= 20 and task != "":
+                to_do_list.insert(to_do_list.size(), task)
+                to_do_list.config(height=to_do_list.size())
+                tasks.append(task)
+                if len(task) > to_do_list.cget("width"):
+                    to_do_list.config(width=len(task)+2)
+            elif to_do_list.size() > 20:
+                messagebox.showwarning(title="Line expansion",message="List cannot exceed 20 lines")
+            elif task == "":
+                pass
+
+    def clearentry(event):
+        task_entry.delete(0,END)
             
     task_entry = Entry(add_task_frame, width=30, font=('JetBrains Mono', 12, "italic"),
                         bg="#3a3736",   
@@ -63,6 +72,9 @@ def main():
                         highlightcolor="#dfd9d8")
     task_entry.insert(0, t_entry)
     task_entry.pack(padx=3,side=LEFT)
+
+    task_entry.bind("<Button-1>",clearentry)
+    task_entry.bind("<Return>",add_event_t)
 
     a_task_button = Button(add_task_frame, text="Add Task",
                         font=('JetBrains Mono', 11, 'bold'),
@@ -149,6 +161,7 @@ def main():
                         cursor="hand2", command=clear).pack(side=RIGHT)
 
     time()
+
     home.mainloop()
 
 if __name__ == "__main__":
