@@ -26,8 +26,8 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    windowim = PhotoImage(file='logo.png')
-    home.iconphoto(True, windowim)
+    windowim = PhotoImage(file='logo.png')  # Comment/Remove this and the line below this,
+    home.iconphoto(True, windowim)          # if the 'logo.png' file is not in the same folder as the script
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.place(relx=0.5,rely=0.01,anchor="n")
