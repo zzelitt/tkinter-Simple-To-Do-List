@@ -26,17 +26,21 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    windowim = PhotoImage(file='logo.png')  # Comment/Remove this and the line below this,
-    home.iconphoto(True, windowim)          # if the 'logo.png' file is not in the same folder as the script
+    #windowim = PhotoImage(file='logo.png')  # Un-Comment this and the line below this,
+    #home.iconphoto(True, windowim)          # if the 'logo.png' file is in the same folder as the script
+
+    digifont = Font(family="DS-Digital",size=26)  # Un-Comment this line if 'DS-Digital' font is not installed
+                                                                          # AND 
+    #digifont = Font(family="Consolas",size=18,weight='bold') # Comment this line if the above condition is met.
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.place(relx=0.5,rely=0.01,anchor="n")
 
-    time_label = Label(home, font=("Arial Black",16), padx=5, bg="#2c2a2a", fg="#e6e0e0")
-    time_label.place(relx=0.835,rely=0.035,anchor="n")
+    time_label = Label(home, font=digifont, padx=5, bg="#2e2c2c", fg="#d3cccc")
+    time_label.place(relx=0.835,rely=0.025,anchor="n")
 
     def time():
-        string = strftime('%H:%M %p')
+        string = strftime('%H:%M:%S')
         time_label.config(text=string)
         time_label.after(1000,time)
 
