@@ -26,12 +26,12 @@ def main():
     home.title("Simple To-Do List")
     home.geometry("420x620")
     home.config(bg="#2e2c2c")
-    #windowim = PhotoImage(file='logo.png')  # Un-Comment this and the line below this,
+    #windowim = PhotoImage(file='logo.png')  # Un-Comment this AND the line below this,
     #home.iconphoto(True, windowim)          # if the 'logo.png' file is in the same folder as the script
 
-    digifont = Font(family="DS-Digital",size=26)  # Un-Comment this line if 'DS-Digital' font is not installed
+    #digifont = Font(family="DS-Digital",size=26)  # Un-Comment this line if 'DS-Digital' font is installed
                                                                           # AND 
-    #digifont = Font(family="Consolas",size=18,weight='bold') # Comment this line if the above condition is met.
+    digifont = Font(family="Consolas",size=18,weight='bold') # Comment this line if the above condition is met.
 
     header_text = Label(home, text="To-Do List", font=("Calibri",25,"bold"), fg="#e6e0e0", bg="#2e2c2c", pady=10)
     header_text.place(relx=0.5,rely=0.01,anchor="n")
